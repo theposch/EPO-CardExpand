@@ -1,25 +1,25 @@
 app.coffee
-framer/backups/backup-2016-07-06 14.31.22.coffee
-framer/backups/backup-2016-07-06 14.32.22.coffee
-framer/backups/backup-2016-07-06 14.35.22.coffee
-framer/backups/backup-2016-07-06 14.36.22.coffee
-framer/backups/backup-2016-07-06 14.37.22.coffee
-framer/backups/backup-2016-07-06 14.38.22.coffee
-framer/backups/backup-2016-07-06 14.39.22.coffee
-framer/backups/backup-2016-07-06 14.40.22.coffee
-framer/backups/backup-2016-07-06 14.41.22.coffee
-framer/backups/backup-2016-07-06 14.42.22.coffee
-framer/backups/backup-2016-07-06 14.43.22.coffee
-framer/backups/backup-2016-07-06 14.44.22.coffee
-framer/backups/backup-2016-07-06 14.45.22.coffee
-framer/backups/backup-2016-07-06 14.47.22.coffee
-framer/backups/backup-2016-07-06 14.48.22.coffee
-framer/backups/backup-2016-07-06 14.49.23.coffee
-framer/backups/backup-2016-07-06 14.50.22.coffee
-framer/backups/backup-2016-07-06 14.51.22.coffee
-framer/backups/backup-2016-07-06 14.52.22.coffee
-framer/backups/backup-2016-07-06 14.56.26.coffee
-framer/backups/backup-2016-07-06 14.57.26.coffee
+framer/backups/backup-2016-07-07 16.19.02.coffee
+framer/backups/backup-2016-07-07 16.21.02.coffee
+framer/backups/backup-2016-07-07 16.22.02.coffee
+framer/backups/backup-2016-07-07 16.23.02.coffee
+framer/backups/backup-2016-07-07 16.24.02.coffee
+framer/backups/backup-2016-07-07 16.25.02.coffee
+framer/backups/backup-2016-07-07 16.26.02.coffee
+framer/backups/backup-2016-07-07 16.27.02.coffee
+framer/backups/backup-2016-07-07 16.37.10.coffee
+framer/backups/backup-2016-07-07 16.40.03.coffee
+framer/backups/backup-2016-07-07 16.41.03.coffee
+framer/backups/backup-2016-07-07 16.42.03.coffee
+framer/backups/backup-2016-07-07 16.43.03.coffee
+framer/backups/backup-2016-07-07 16.44.03.coffee
+framer/backups/backup-2016-07-07 16.45.03.coffee
+framer/backups/backup-2016-07-07 16.47.03.coffee
+framer/backups/backup-2016-07-07 16.48.03.coffee
+framer/backups/backup-2016-07-07 16.53.03.coffee
+framer/backups/backup-2016-07-07 16.55.03.coffee
+framer/backups/backup-2016-07-07 16.56.03.coffee
+framer/backups/backup-2016-07-07 16.57.03.coffee
 framer/coffee-script.js
 framer/config.json
 framer/framer.generated.js
@@ -56,10 +56,10 @@ images/avatar.png
 images/bookmark_active.png
 images/bookmark_default.png
 images/Close.png
-images/Elements/Close.png
-images/Elements/Saved.png
 images/Picture Quiz 3.jpg
-images/Saved.png
+images/PullRefresh_v2.mov
+images/Swipe1.wav
+images/Swipe2.wav
 images/text1.png
 imported/EPO-cardExpand_proto@2x/images/Layer-Action-oejcmku4.png
 imported/EPO-cardExpand_proto@2x/images/Layer-ActionClose-oevdqjmx.png

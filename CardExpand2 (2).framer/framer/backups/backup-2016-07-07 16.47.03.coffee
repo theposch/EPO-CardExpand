@@ -86,10 +86,12 @@ cardHeadline = new m.Text
 	fontFamily: "SFUIDisplay-Light"
 	fontSize: "21"
 	color: "#5A6377"
+	
 cardHeadline.constraints =
 	top: [CardImage, 16]
 	leading: 16
 	trailing: 16
+
 	
 m.layout.set(cardHeadline)
 
@@ -232,7 +234,10 @@ closeArea = new Layer
 
 
 
-# BOOKMARK ICON
+# Book Mark Icon -----------------------------------------------------------------------
+
+
+
 
 bookmark_default = new Layer
 	superLayer: cardHeader
@@ -262,25 +267,143 @@ m.layout.set()
 
 
 
-bookmark_default.states.add
-		show: {opacity: 1}
-		hide: {opacity:0, x: 700}
-		
-bookmark_default.states.animationOptions =
-		curve: 'spring(1200, 00, 0)'
-
-
 bookmark_active.states.add
-		show: {opacity: 1}
-		hide: {opacity:0, x: 700}
-		
-bookmark_active.states.animationOptions =
-		curve: 'spring(1400, 0, 0)'
-		
-		
-bookmark_default.states.switchInstant 'hide'
+	show: {opacity: 1}
+	hide: {opacity: 0, x: 700}
+	
 bookmark_active.states.switchInstant 'hide'
 
+
+bookmark_default.states.add
+	show: {opacity: 1}
+	hide: {opacity: 0, x: 700}
+	
+bookmark_default.states.switchInstant 'hide'
+
+bookmark_active.states.animationOptions =
+	curve: "spring-rk4(900,50,0)"
+	
+bookmark_default.states.animationOptions =
+	curve: "spring-rk4(900,50,0)"
+audio = new Audio('images/Swipe1.wav');
+audio2 = new Audio('images/Swipe1.wav');
+
+
+layerA = new Layer
+	width: 750
+	backgroundColor: "#51497A"
+	superLayer: container
+
+
+
+releaseText = new m.Text	
+	text: "Pull to close"
+	textAlign: 'center'
+	superLayer: layerA
+	color: '#9585DD'
+	fontSize: '12px'
+	opacity: 0.4
+	fontWeight: 'bold'
+releaseText.constraints =
+	leading: 0
+	trailing: 0
+	top: 20
+m.layout.set()
+
+###
+
+# Card2 -----------------------------------------------------------------------
+Card2 = new Layer
+	name: "Card 2"
+	y: 432
+	backgroundColor: "rgba(255,255,255,1)"
+	shadowSpread: 0
+	shadowColor: "rgba(0,0,0,0.10)"
+	shadowY: -0.5
+	shadowBlur: 14
+	height: 598
+	borderRadius: 16
+	clip: true
+
+	
+Card2.constraints =
+		leading:0
+		trailing: 0
+		top: [Card, 16]
+		
+		
+m.layout.set()
+
+
+
+cardHeader2 = new Layer
+	superLayer: Card2
+	backgroundColor: "transparent"
+
+cardHeader2.constraints =
+	top: 0
+	leading: 0
+	trailing:0
+	height: 56
+
+m.layout.set(cardHeader2)
+
+# Card Image  -----------------------------------------------------------------------	
+CardImage2 = new Layer
+	name: "Card Image 2"
+	superLayer: Card2
+	image: "images/127129.jpg"
+	
+CardImage2.constraints = 
+	top: [cardHeader2,0]
+	leading: 0
+	width: 125
+	height: 150
+
+m.layout.set(CardImage2)
+# Card Text -----------------------------------------------------------------------
+
+
+cardHeadline2 = new m.Text
+	name: "Headline"
+	superLayer: Card2
+	text: "Bone marrow braces caries chronic external otitis"
+	fontFamily: "SFUIDisplay-Light"
+	fontSize: "21"
+	color: "#5A6377"
+	
+	
+cardHeadline2.constraints =
+	top: [cardHeader2, 16]
+	leading: [CardImage2, 16]
+	trailing: 16
+	height: 40
+	
+m.layout.set(cardHeadline2)
+
+
+
+cardTimestamp2 = new m.Text
+	name: "Time Stamp"
+	superLayer: Card2
+	text: "5 min read"
+	fontFamily: "SFUIDisplay-Regular"
+	fontSize: "13"
+	
+	color: "#A6AEC0"
+cardTimestamp2.constraints =
+	top: [cardHeadline2, 32]
+	leading: [CardImage2, 16]
+	trailing: 16
+	
+m.layout.set(cardTimestamp2)
+	
+
+
+
+
+
+###
 
 
 # Scroll Container
@@ -306,62 +429,123 @@ scroll.on Events.Move, ->
     Navigation_Bar.y = y 
 
 
+
+constraints = new Layer
+	width: 750
+	height: 1274
+	backgroundColor: "transparent"
+	y: 60
 # EXPAND CARD ANIMATIONS
 expandCard = ->
-	# Move Card out of Scroll container
-	closeArea.bringToFront()
-	# Move Card to top of screen
-	Card.animate
-		properties: (y:40)
-		curve:  "spring-rk4(1000,60,0)"
+	audio.play()
 
-	# Change Image Height
-	CardImage.constraints.height = 400
-	Card.constraints.height = Screen.height
+		# Move Card out of Scroll container
+	layerA.animate
+		properties: 
+			opacity: 1
+		curve: "ease-in"
+			
+	Navigation_Bar.animate
+		properties: {blur: 6}
 	
-	# Reset the constraints relative to the new Image Height
-	m.layout.animate
-		curve: "spring-rk4(1000,60,0)"
-	Card.superLayer = container	
-# Move all other cards out of screen
-	avatar.states.switch 'hide'
-	Close.states.switch 'show'
-	bookmark_default.states.switch 'show'
-
-
-
+			
+	Card.superLayer = container
+	Navigation_Bar.sendToBack()
+	Card.draggable.enabled = true
+	Card.draggable.horizontal = false
+	Card.draggable.constraints = constraints.frame 
+	closeArea.bringToFront()
+	releaseText.opacity = 0
+			
+		
+		Card.animate
+			properties:
+				y:40
+			curve: "spring-rk4(1500,120,2)"
+	
+	
+		CardImage.constraints.height = 400
+		Card.constraints.height = Screen.height
+			
+		m.layout.animate
+			curve: "spring-rk4(3000,140,2)"
+			
+		avatar.states.switch 'hide'
+		Close.states.switch 'show'
+		bookmark_default.states.switch 'show'
+	
+	
 
 goBack = ->
-	# Move Card back into Scroll container
+	audio2.play()
+	layerA.animate
+		properties: 
+			opacity: 0
+		curve: "ease-out"
+		time: 1
+		# Move Card back into Scroll container
+	Card.draggable.enabled = false
 	Card.superLayer = scroll.content
 	closeArea.sendToBack()
-	# Reset the Card Constraints
-	Card.constraints.height = 298
-	CardImage.constraints.height = 150
-	m.layout.animate
-		curve: "bezier-curve(0.5,0.2,.12,1)"
-		time: 0.3
-
 		
-	# Bring Card back to it's original position
 	Card.animate
-		properties: (y:432)
-		curve: "bezier-curve(0.5,0.2,.12,1)"
-		time: 0.3
-		
-	# Bring all other cards back to original position
-	bookmark_active.states.switch 'hide'
-	bookmark_default.states.switch 'hide'
-	Utils.delay 0.65, ->
+		properties: (y:260)
+		curve: "ease-in"
+		time:0.001
 	
+		
+	Utils.delay 0.006, ->
+			
+		Card.animate
+			properties: (y:432)
+			curve: "ease-in"
+			time:0.00000000001
+					# Reset the Card Constraints
+		Card.constraints.height = 298
+		CardImage.constraints.height = 150
+		m.layout.animate
+			curve: "ease-in"
+			time: 0.3
+		bookmark_default.states.switch 'hide'
+		Navigation_Bar.bringToFront()
 		avatar.states.switch 'show'
 		Close.states.switch 'hide'
-		
+		Card.animate	
+			properties: 
+				shadowSpread: 0
+				shadowColor: "rgba(0,0,0,0.10)"
+				shadowY: -0.5
+				shadowBlur: 14
+			curve: "ease-in"
+			time: 0.3
+				
+	
+	
+Card.on Events.Drag, ->
+	scale = Utils.modulate(Card.y, [0,100], [0.9,1], true)
+	releaseText.scale = scale
+	
+	opacity = Utils.modulate(Card.y, [0,200], [0.6,1], true)
+	releaseText.opacity = opacity
+	
+	y = Utils.modulate(Card.y, [0,190], [-103,96], true)
+	releaseText.y = y
+	
+	height = Utils.modulate(Card.y, [0,200], [0,1400], true)
+	layerA.height = height
+	
+
 
 	
-saveBookmark = ->
-	bookmark_active.states.switch 'show'
+Card.on Events.DragEnd, ->
+	if Card.y > 160
+		goBack()
+		layerA.height = 0
 	
+		
+
+
+
 
 
 
@@ -374,5 +558,8 @@ Card.on Events.Click,->
 closeArea.on Events.Click, ->
 	goBack()
 
-bookmark_default.on Events.Click, ->
-	saveBookmark()
+
+
+
+
+
