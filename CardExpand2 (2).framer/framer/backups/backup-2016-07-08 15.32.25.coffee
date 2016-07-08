@@ -96,7 +96,8 @@ cardHeadline = new m.Text
 	name: "Headline"
 	superLayer: Card
 	text: "Bone marrow braces caries chronic external otitis"
-	fontFamily: "SFUIDisplay-Light"
+	fontFamily: "SFUIDisplay-Light, San Francisco, Helvetica, sans-serif"
+	fontWeight: 'light'
 	fontSize: "21"
 	color: "#5A6377"
 	
@@ -114,7 +115,8 @@ cardTimestamp = new m.Text
 	name: "Time Stamp"
 	superLayer: Card
 	text: "5 min read"
-	fontFamily: "SFUIDisplay-Regular"
+	fontFamily: "SFUIDisplay-Regular, San Francisco, Helvetica, sans-serif"
+	fontWeight: 'normal'
 	fontSize: "13"
 	color: "#A6AEC0"
 cardTimestamp.constraints =
@@ -155,7 +157,8 @@ category = new m.Text
 	name: "Category"
 	superLayer: cardHeader
 	text: "Clinical Insights"
-	fontFamily: "SFUIText-Semibold"
+	fontFamily: "SFUIDisplay-Semibold, San Francisco, Helvetica, sans-serif"
+	fontWeight: 'bold'
 	fontSize: "14"
 	color: "#5A6377"
 	
@@ -170,7 +173,8 @@ source = new m.Text
 	name: "Article Source"
 	superLayer: cardHeader
 	text: "athenaHealth"
-	fontFamily: "SFUIText-Light"
+	fontFamily: "SFUIDisplay-Light, San Francisco, Helvetica, sans-serif"
+	fontWeight: 'light'
 	fontSize: "14"
 	color: "#A6AEC0"
 	
@@ -245,7 +249,7 @@ closeArea = new Layer
 
 # Default
 bookmark_default = new Layer
-	name: ""
+	name: "Bookmark Default"
 	superLayer: cardHeader
 	width: 36
 	height: 48
@@ -270,6 +274,7 @@ bookmark_default.states.animationOptions =
 
 # Active
 bookmark_active = new Layer
+	name: "Bookmark Active"
 	superLayer: cardHeader
 	width: 36
 	height: 48
@@ -298,18 +303,31 @@ bookmark_active.states.animationOptions =
 # Pull To Close Setup
 
 
-pullToCloseBackground = new Layer
+darkBG = new Layer
+	name: "Pull Background"
 	width: 750
-	backgroundColor: "#51497A"
+	height: Screen.height
+	backgroundColor: "rgba(11,5,14,0.97)"
 	superLayer: container
+darkBG.placeBefore(Navigation_Bar)
 
 
+darkBG.states.add
+	show: {opacity:0.9}
+	hide: {opacity: 0}
 
+darkBG.states.switchInstant 'hide'
+darkBG.states.animationOptions =
+	curve: animateInCurve
+	time: 0.3
+
+###
 releaseText = new m.Text	
+	name: "Pull To Close"
 	text: "Pull to close"
 	textAlign: 'center'
-	superLayer: pullToCloseBackground
-	color: '#9585DD'
+	superLayer: darkBG
+	color: 'white'
 	fontSize: '12px'
 	fontWeight: 'bold'
 	
@@ -319,13 +337,58 @@ releaseText.constraints =
 	trailing: 0
 	top: 20
 m.layout.set(releaseText)
-
+###
 # Constraint Layer for the Card Drag
 constraints = new Layer
+	name: "Card Drag Constraint"
 	width: 750
-	height: 1274
+	height: 1200
 	backgroundColor: "transparent"
 	y: 60
+
+# Action Sheet Setup
+
+actionSheet = new Layer
+	width: 710
+	height: 582
+	image: "images/actionSheet.png"
+	y: 732
+
+actionSheet.centerX()
+
+
+actionSheet.states.add
+	show: {y: 732}
+	hide: {y: 1500}
+actionSheet.states.switchInstant 'hide'
+
+actionSheet.states.animationOptions =
+	curve: animateInCurve
+	time: 0.5
+
+trigger = new Layer
+	superLayer: Card
+	width: 104
+	x: 646
+	height: 118
+	backgroundColor: ""
+	
+
+trigger.on Events.Click,->
+	darkBG.bringToFront()
+	actionSheet.bringToFront()
+	actionSheet.states.next('show','hide')
+	darkBG.states.switch 'show'
+	Card.ignoreEvents = true
+	CardImage.ignoreEvents = true
+	scroll.ignoreEvents = true
+actionSheet.on Events.Click,->
+	actionSheet.states.next('show','hide')
+	darkBG.states.switch 'hide'
+	Card.ignoreEvents = false
+	CardImage.ignoreEvents = false
+	scroll.ignoreEvents = false
+
 	
 # Home Feed Scroll
 
@@ -342,14 +405,18 @@ Card3.superLayer = scroll.content
 
 
 Navigation_Bar.superLayer = container
-Navigation_Bar.bringToFront()
-
+Statusbar.superLayer = container
 
 # when scrolling, move navbar 
 scroll.on Events.Move, ->
 	
-    y = Utils.modulate(scroll.scrollY, [0,240], [0,-240], true)
+    y = Utils.modulate(scroll.scrollY, [0,220], [0,-200], true)
     Navigation_Bar.y = y 
+	
+
+
+darkBG.bringToFront()
+scroll.placeBehind(darkBG)
 
 
 # Expand Animation ------------------------------
@@ -359,12 +426,7 @@ scroll.on Events.Move, ->
 # Animate IN ----------------------------------------------------
 expandCard = ->
 	
-	
-	pullToCloseBackground.animate
-		properties: 
-			opacity: 0.6
-		curve: "ease-in"
-			
+	darkBG.states.switch 'show'
 	# Move the Card out of the Scroll container by changing it's superLayer
 	Card.superLayer = container
 	# Send Navbar into background
@@ -375,7 +437,7 @@ expandCard = ->
 	Card.draggable.constraints = constraints.frame 
 	# bring the Close Trigger Area to the front
 	closeArea.bringToFront()
-	releaseText.opacity = 0
+	#releaseText.opacity = 0
 	
 	# Animate the Card position
 	Card.animate
@@ -385,7 +447,7 @@ expandCard = ->
 		time: 0.3	
 		
 	# Change the Image Height
-	CardImage.constraints.height = 200
+	CardImage.constraints.height = 400
 	# Animate the Card Background Height to take up the whole screen
 	Card.constraints.height = Screen.height
 	# Animate all elements realative to the new Image and Card constraints
@@ -402,17 +464,13 @@ expandCard = ->
 	
 	
 	
-	
+		
 # Animate OUT ----------------------------------------------------
 
 goBack = ->
 
-	pullToCloseBackground.animate
-		properties: 
-			opacity: 0
-		curve: animateInCurve
-		time: 0.2
-		
+	darkBG.states.switch 'hide'
+
 	# Remove the Drag Events on the Card
 	Card.draggable.enabled = false
 	
@@ -424,7 +482,7 @@ goBack = ->
 	Card.animate
 		properties: (y:432)
 		curve: animateInCurve
-		time:0.2
+		time: 0.3	
 	
 	# Reset the Card Constraints and Image height
 	CardImage.constraints.height = 150
@@ -433,7 +491,7 @@ goBack = ->
 	# Animate all constraints back to original values
 	m.layout.animate
 		curve: animateInCurve
-		time: 0.2
+		time: 0.3	
 		
 	# Hide Bookmark adn Close Icon, Show Avatar
 	bookmark_default.states.switch 'hide'
@@ -442,6 +500,9 @@ goBack = ->
 			
 	# Show Navigation_Bar
 	Navigation_Bar.bringToFront()
+	Statusbar.bringToFront()
+	darkBG.bringToFront()
+
 
 	
 
@@ -450,43 +511,46 @@ goBack = ->
 # EVENTS ----------------------------
 
 # When Clicking on the Card, Expand the Card
-Card.on Events.Click,->
+CardImage.on Events.Click,->
 	expandCard()
 
-
+cardHeader.on Events.Click,->
+	expandCard()
 # When Clicking the Close Icon, Close the Card
 closeArea.on Events.Click, ->
 	goBack()
 
 
 # When Dragging the Card down, animate the "Pull to close" Text
-Card.on Events.Drag, ->
 
-	scale2 = Utils.modulate(Card.y, [0,400], [0.5,1.2], true)
-	releaseText.scale = scale2
+Card.on Events.Drag, ->
 	
-	opacity = Utils.modulate(Card.y, [0,240], [0,1], true)
-	releaseText.opacity = opacity
+	#scale2 = Utils.modulate(Card.y, [0,400], [0.5,1.2], true)
+	#releaseText.scale = scale2
+	
+	#opacity = Utils.modulate(Card.y, [0,240], [0,1], true)
+	#releaseText.opacity = opacity
 	
 	
-	y = Utils.modulate(Card.y, [0,190], [-103,96], true)
-	releaseText.y = y
+	#y = Utils.modulate(Card.y, [0,190], [-103,96], true)
+	#releaseText.y = y
+
 	
-	height = Utils.modulate(Card.y, [0,200], [0,1200], true)
-	pullToCloseBackground.height = height
-	
+	scale3 = Utils.modulate(Card.y, [0,600], [1,0.9], true)
+	Card.scale = scale3
+
 
 
 # When Dragging the Card Down beyond threshold 'y' , close the Card
 Card.on Events.DragEnd, ->
-	pullToCloseBackground.height = 100
 	if Card.y > 160
+		Card.animate
+			properties: 
+				scale:1
 		goBack()
-		pullToCloseBackground.height = 0
+	
 	
 		
-
-
 
 
 

@@ -1,25 +1,25 @@
 app.coffee
-framer/backups/backup-2016-07-08 14.01.09.coffee
-framer/backups/backup-2016-07-08 14.02.09.coffee
-framer/backups/backup-2016-07-08 14.03.09.coffee
-framer/backups/backup-2016-07-08 14.04.09.coffee
-framer/backups/backup-2016-07-08 14.05.09.coffee
-framer/backups/backup-2016-07-08 14.06.09.coffee
-framer/backups/backup-2016-07-08 14.07.09.coffee
-framer/backups/backup-2016-07-08 14.09.09.coffee
-framer/backups/backup-2016-07-08 14.10.09.coffee
-framer/backups/backup-2016-07-08 14.11.09.coffee
-framer/backups/backup-2016-07-08 14.13.09.coffee
-framer/backups/backup-2016-07-08 14.19.09.coffee
-framer/backups/backup-2016-07-08 14.20.09.coffee
-framer/backups/backup-2016-07-08 14.21.09.coffee
-framer/backups/backup-2016-07-08 14.22.09.coffee
-framer/backups/backup-2016-07-08 14.23.09.coffee
-framer/backups/backup-2016-07-08 14.24.09.coffee
-framer/backups/backup-2016-07-08 14.25.09.coffee
-framer/backups/backup-2016-07-08 14.26.09.coffee
-framer/backups/backup-2016-07-08 14.27.09.coffee
-framer/backups/backup-2016-07-08 14.28.09.coffee
+framer/backups/backup-2016-07-08 15.07.25.coffee
+framer/backups/backup-2016-07-08 15.08.25.coffee
+framer/backups/backup-2016-07-08 15.09.25.coffee
+framer/backups/backup-2016-07-08 15.10.25.coffee
+framer/backups/backup-2016-07-08 15.11.26.coffee
+framer/backups/backup-2016-07-08 15.12.25.coffee
+framer/backups/backup-2016-07-08 15.13.25.coffee
+framer/backups/backup-2016-07-08 15.14.25.coffee
+framer/backups/backup-2016-07-08 15.15.25.coffee
+framer/backups/backup-2016-07-08 15.16.25.coffee
+framer/backups/backup-2016-07-08 15.17.27.coffee
+framer/backups/backup-2016-07-08 15.18.25.coffee
+framer/backups/backup-2016-07-08 15.19.25.coffee
+framer/backups/backup-2016-07-08 15.20.25.coffee
+framer/backups/backup-2016-07-08 15.21.25.coffee
+framer/backups/backup-2016-07-08 15.22.25.coffee
+framer/backups/backup-2016-07-08 15.23.25.coffee
+framer/backups/backup-2016-07-08 15.29.25.coffee
+framer/backups/backup-2016-07-08 15.32.25.coffee
+framer/backups/backup-2016-07-08 15.33.25.coffee
+framer/backups/backup-2016-07-08 15.35.25.coffee
 framer/coffee-script.js
 framer/config.json
 framer/framer.generated.js
@@ -54,6 +54,7 @@ framer/style.css
 framer/version
 images/127129.jpg
 images/Actions.png
+images/actionSheet.png
 images/avatar.png
 images/bookmark_active.png
 images/bookmark_default.png
@@ -70,9 +71,10 @@ imported/EPO-cardExpand_proto@2x/images/Layer-Card2-nee1qzi3.png
 imported/EPO-cardExpand_proto@2x/images/Layer-Card3-mkyyntfe.png
 imported/EPO-cardExpand_proto@2x/images/Layer-cardBackground1-rdiyndm1.png
 imported/EPO-cardExpand_proto@2x/images/Layer-cardImage1-nkm5m0y2.png
+imported/EPO-cardExpand_proto@2x/images/Layer-Close-n0q5m0q3.png
+imported/EPO-cardExpand_proto@2x/images/Layer-Close-nkiwmjbe.png
 imported/EPO-cardExpand_proto@2x/images/Layer-Contents-mjzbruy0.png
 imported/EPO-cardExpand_proto@2x/images/Layer-Contents-qzuzrdyw.png
-imported/EPO-cardExpand_proto@2x/images/Layer-Elements_Close-ota4qtmy.png
 imported/EPO-cardExpand_proto@2x/images/Layer-Header1-nundote4.png
 imported/EPO-cardExpand_proto@2x/images/Layer-Header2-ndhbreu0.png
 imported/EPO-cardExpand_proto@2x/images/Layer-Navigation_Bar-mdy1ruqz.png

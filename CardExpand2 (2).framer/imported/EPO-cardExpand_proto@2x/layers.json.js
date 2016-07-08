@@ -45,7 +45,7 @@ window.__imported__["EPO-cardExpand_proto@2x/layers.json.js"] = [
 					}
 				},
 				"children": [],
-				"time": 394
+				"time": 384
 			},
 			{
 				"objectId": "4A5C276F-5E43-4EDF-92A5-57F3CB5A6275",
@@ -77,7 +77,7 @@ window.__imported__["EPO-cardExpand_proto@2x/layers.json.js"] = [
 					}
 				},
 				"children": [],
-				"time": 319
+				"time": 308
 			},
 			{
 				"objectId": "1F1E23FB-47F9-4F37-B59C-63C90A2C3531",
@@ -129,7 +129,7 @@ window.__imported__["EPO-cardExpand_proto@2x/layers.json.js"] = [
 							}
 						},
 						"children": [],
-						"time": 62
+						"time": 68
 					},
 					{
 						"objectId": "48ADE4E1-CD28-4E28-BE3D-D5C8BBDD499B",
@@ -138,11 +138,11 @@ window.__imported__["EPO-cardExpand_proto@2x/layers.json.js"] = [
 						"maskFrame": null,
 						"layerFrame": {
 							"x": 0,
-							"y": 215,
+							"y": 216,
 							"width": 375,
-							"height": 61
+							"height": 60
 						},
-						"visible": false,
+						"visible": true,
 						"metadata": {
 							"opacity": 1
 						},
@@ -150,9 +150,9 @@ window.__imported__["EPO-cardExpand_proto@2x/layers.json.js"] = [
 							"path": "images/Layer-Header2-ndhbreu0.png",
 							"frame": {
 								"x": 0,
-								"y": 215,
+								"y": 216,
 								"width": 375,
-								"height": 61
+								"height": 60
 							}
 						},
 						"children": [
@@ -162,10 +162,10 @@ window.__imported__["EPO-cardExpand_proto@2x/layers.json.js"] = [
 								"name": "ActionClose",
 								"maskFrame": null,
 								"layerFrame": {
-									"x": 14,
-									"y": 236,
-									"width": 24,
-									"height": 24
+									"x": 16,
+									"y": 230,
+									"width": 32,
+									"height": 32
 								},
 								"visible": true,
 								"metadata": {
@@ -174,42 +174,70 @@ window.__imported__["EPO-cardExpand_proto@2x/layers.json.js"] = [
 								"image": {
 									"path": "images/Layer-ActionClose-oevdqjmx.png",
 									"frame": {
-										"x": 14,
-										"y": 236,
-										"width": 24,
-										"height": 24
+										"x": 16,
+										"y": 230,
+										"width": 32,
+										"height": 32
 									}
 								},
 								"children": [
 									{
-										"objectId": "908A32EB-2C07-4920-9B63-CE48C89025CD",
+										"objectId": "6B020D28-9524-432B-9305-88269AB6F676",
 										"kind": "group",
-										"name": "Elements_Close",
+										"name": "Close",
 										"maskFrame": null,
 										"layerFrame": {
-											"x": 14,
-											"y": 236,
-											"width": 24,
-											"height": 24
+											"x": 16,
+											"y": 230,
+											"width": 32,
+											"height": 32
 										},
 										"visible": true,
 										"metadata": {
 											"opacity": 1
 										},
 										"image": {
-											"path": "images/Layer-Elements_Close-ota4qtmy.png",
+											"path": "images/Layer-Close-nkiwmjbe.png",
 											"frame": {
-												"x": 14,
-												"y": 236,
-												"width": 24,
-												"height": 24
+												"x": 16,
+												"y": 230,
+												"width": 32,
+												"height": 32
 											}
 										},
-										"children": [],
-										"time": 40
+										"children": [
+											{
+												"objectId": "7D93D7E5-EB1E-4FB9-86BA-AAE30D2661BD",
+												"kind": "group",
+												"name": "Close1",
+												"maskFrame": null,
+												"layerFrame": {
+													"x": 27,
+													"y": 243,
+													"width": 10,
+													"height": 6
+												},
+												"visible": true,
+												"metadata": {
+													"opacity": 1
+												},
+												"image": {
+													"path": "images/Layer-Close-n0q5m0q3.png",
+													"frame": {
+														"x": 27,
+														"y": 243,
+														"width": 10,
+														"height": 6
+													}
+												},
+												"children": [],
+												"time": 35
+											}
+										],
+										"time": 81
 									}
 								],
-								"time": 84
+								"time": 122
 							},
 							{
 								"objectId": "8BB2E82F-C0CE-49DF-8466-FEA7CE049FAF",
@@ -236,7 +264,7 @@ window.__imported__["EPO-cardExpand_proto@2x/layers.json.js"] = [
 									}
 								},
 								"children": [],
-								"time": 41
+								"time": 39
 							},
 							{
 								"objectId": "00632307-7F16-4DDA-8308-8316A7A09652",
@@ -263,10 +291,10 @@ window.__imported__["EPO-cardExpand_proto@2x/layers.json.js"] = [
 									}
 								},
 								"children": [],
-								"time": 38
+								"time": 36
 							}
 						],
-						"time": 221
+						"time": 258
 					},
 					{
 						"objectId": "5CC91804-97AD-4658-82FD-7CB46A0180EA",
@@ -318,7 +346,7 @@ window.__imported__["EPO-cardExpand_proto@2x/layers.json.js"] = [
 									}
 								},
 								"children": [],
-								"time": 45
+								"time": 43
 							},
 							{
 								"objectId": "5A5B28E4-7708-4A3C-A54C-11EAD0AB9CFC",
@@ -345,10 +373,10 @@ window.__imported__["EPO-cardExpand_proto@2x/layers.json.js"] = [
 									}
 								},
 								"children": [],
-								"time": 39
+								"time": 41
 							}
 						],
-						"time": 147
+						"time": 141
 					},
 					{
 						"objectId": "C53D6053-AEAF-4A6C-B32C-FEF68F945424",
@@ -375,7 +403,7 @@ window.__imported__["EPO-cardExpand_proto@2x/layers.json.js"] = [
 							}
 						},
 						"children": [],
-						"time": 54
+						"time": 53
 					},
 					{
 						"objectId": "D22435A3-5F17-46F5-9A9F-71224FB2300F",
@@ -402,10 +430,10 @@ window.__imported__["EPO-cardExpand_proto@2x/layers.json.js"] = [
 							}
 						},
 						"children": [],
-						"time": 78
+						"time": 75
 					}
 				],
-				"time": 814
+				"time": 851
 			},
 			{
 				"objectId": "C4034654-75D9-4098-BD9A-387917742707",
@@ -432,7 +460,7 @@ window.__imported__["EPO-cardExpand_proto@2x/layers.json.js"] = [
 					}
 				},
 				"children": [],
-				"time": 113
+				"time": 66
 			},
 			{
 				"objectId": "065ED369-46AA-4615-9BF1-43E53910AAC1",
@@ -484,7 +512,7 @@ window.__imported__["EPO-cardExpand_proto@2x/layers.json.js"] = [
 							}
 						},
 						"children": [],
-						"time": 61
+						"time": 63
 					},
 					{
 						"objectId": "EA240463-929E-4042-BD6E-602EC9A065F1",
@@ -561,18 +589,18 @@ window.__imported__["EPO-cardExpand_proto@2x/layers.json.js"] = [
 											}
 										},
 										"children": [],
-										"time": 49
+										"time": 48
 									}
 								],
-								"time": 114
+								"time": 111
 							}
 						],
-						"time": 177
+						"time": 172
 					}
 				],
-				"time": 332
+				"time": 326
 			}
 		],
-		"time": 2006
+		"time": 1963
 	}
 ]

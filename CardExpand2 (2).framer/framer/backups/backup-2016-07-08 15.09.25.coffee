@@ -96,7 +96,8 @@ cardHeadline = new m.Text
 	name: "Headline"
 	superLayer: Card
 	text: "Bone marrow braces caries chronic external otitis"
-	fontFamily: "SFUIDisplay-Light"
+	fontFamily: "SFUIDisplay-Light, San Francisco, Helvetica, sans-serif"
+	fontWeight: 'light'
 	fontSize: "21"
 	color: "#5A6377"
 	
@@ -114,7 +115,8 @@ cardTimestamp = new m.Text
 	name: "Time Stamp"
 	superLayer: Card
 	text: "5 min read"
-	fontFamily: "SFUIDisplay-Regular"
+	fontFamily: "SFUIDisplay-Regular, San Francisco, Helvetica, sans-serif"
+	fontWeight: 'normal'
 	fontSize: "13"
 	color: "#A6AEC0"
 cardTimestamp.constraints =
@@ -155,7 +157,8 @@ category = new m.Text
 	name: "Category"
 	superLayer: cardHeader
 	text: "Clinical Insights"
-	fontFamily: "SFUIText-Semibold"
+	fontFamily: "SFUIDisplay-Semibold, San Francisco, Helvetica, sans-serif"
+	fontWeight: 'bold'
 	fontSize: "14"
 	color: "#5A6377"
 	
@@ -170,7 +173,8 @@ source = new m.Text
 	name: "Article Source"
 	superLayer: cardHeader
 	text: "athenaHealth"
-	fontFamily: "SFUIText-Light"
+	fontFamily: "SFUIDisplay-Light, San Francisco, Helvetica, sans-serif"
+	fontWeight: 'light'
 	fontSize: "14"
 	color: "#A6AEC0"
 	
@@ -302,16 +306,17 @@ bookmark_active.states.animationOptions =
 pullToCloseBackground = new Layer
 	name: "Pull Background"
 	width: 750
-	backgroundColor: "#51497A"
+	height: Screen.height
+	backgroundColor: "rgba(11,5,14,0.97)"
 	superLayer: container
 
 
 
 pullToCloseBackground.states.add
-	show: {opacity:0.5}
+	show: {opacity:0.9}
 	hide: {opacity: 0}
 
-pullToCloseBackground.states.switchInstant 'show'
+pullToCloseBackground.states.switchInstant 'hide'
 pullToCloseBackground.states.animationOptions =
 	curve: animateInCurve
 	time: 0.5
@@ -322,7 +327,7 @@ releaseText = new m.Text
 	text: "Pull to close"
 	textAlign: 'center'
 	superLayer: pullToCloseBackground
-	color: '#9585DD'
+	color: 'white'
 	fontSize: '12px'
 	fontWeight: 'bold'
 	
@@ -340,6 +345,36 @@ constraints = new Layer
 	height: 1200
 	backgroundColor: "transparent"
 	y: 60
+
+# Action Sheet Setup
+
+actionSheet = new Layer
+	width: 710
+	height: 582
+	image: "images/actionSheet.png"
+	y: 732
+
+actionSheet.centerX()
+	
+
+actionSheet.states.add
+	show: {y: 732}
+	hide: {y: 1300}
+actionSheet.states.switchInstant 'hide'
+
+
+trigger = new Layer
+	superLayer: container
+	width: 104
+	x: 646
+	height: 118
+	backgroundColor: "red"
+	
+
+trigger.on Events.Click,->
+	actionSheet.states.switch 'show'# Trigger area to close the card
+
+
 	
 # Home Feed Scroll
 
@@ -357,16 +392,18 @@ Card3.superLayer = scroll.content
 
 Navigation_Bar.superLayer = container
 Navigation_Bar.bringToFront()
-
+Statusbar.superLayer = container
 
 # when scrolling, move navbar 
 scroll.on Events.Move, ->
 	
-    y = Utils.modulate(scroll.scrollY, [0,240], [0,-240], true)
+    y = Utils.modulate(scroll.scrollY, [0,220], [0,-200], true)
     Navigation_Bar.y = y 
+	
 
 
 pullToCloseBackground.placeBefore(scroll)
+scroll.placeBehind(pullToCloseBackground)
 # Expand Animation ------------------------------
 
 
@@ -374,9 +411,10 @@ pullToCloseBackground.placeBefore(scroll)
 # Animate IN ----------------------------------------------------
 expandCard = ->
 	
-	
+
 	pullToCloseBackground.states.switch 'show'
-	print pullToCloseBackground.states.current	
+
+
 	# Move the Card out of the Scroll container by changing it's superLayer
 	Card.superLayer = container
 	# Send Navbar into background
@@ -387,6 +425,7 @@ expandCard = ->
 	Card.draggable.constraints = constraints.frame 
 	# bring the Close Trigger Area to the front
 	closeArea.bringToFront()
+	releaseText.opacity = 0
 	
 	# Animate the Card position
 	Card.animate
@@ -413,13 +452,13 @@ expandCard = ->
 	
 	
 	
-	
+		
 # Animate OUT ----------------------------------------------------
 
 goBack = ->
-	
+
 	pullToCloseBackground.states.switch 'hide'
-	print pullToCloseBackground.states.current
+
 	# Remove the Drag Events on the Card
 	Card.draggable.enabled = false
 	
@@ -449,6 +488,8 @@ goBack = ->
 			
 	# Show Navigation_Bar
 	Navigation_Bar.bringToFront()
+	Statusbar.bringToFront()
+
 
 	
 
@@ -479,21 +520,23 @@ Card.on Events.Drag, ->
 	y = Utils.modulate(Card.y, [0,190], [-103,96], true)
 	releaseText.y = y
 	
-	height = Utils.modulate(Card.y, [0,200], [0,1200], true)
-	pullToCloseBackground.height = height
 	
+	scale3 = Utils.modulate(Card.y, [0,600], [1,0.9], true)
+	Card.scale = scale3
+
 
 
 # When Dragging the Card Down beyond threshold 'y' , close the Card
 Card.on Events.DragEnd, ->
 	pullToCloseBackground.height = 100
 	if Card.y > 160
+		Card.animate
+			properties: 
+				scale:1
 		goBack()
-		pullToCloseBackground.height = 0
+	
 	
 		
-
-
 
 
 
