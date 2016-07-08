@@ -19,13 +19,20 @@ background = new BackgroundLayer
 Card1.visible = false
 
 
+# Settings
 container = new Layer
 	width: Screen.width
 	height:  Screen.height
 	backgroundColor: "transparent"
 
 
-# Card -----------------------------------------------------------------------
+animateInCurve = "cubic-bezier(0.2, 0.0, 0.2, 1)"
+animateTime = 0.3
+
+# Card Setup -----------------------------------------------------------------------
+
+
+# Create the Card Background layer
 Card = new Layer
 	name: "Card 1"
 	y: 432
@@ -43,13 +50,16 @@ Card.constraints =
 		trailing: 0
 		
 		
-m.layout.set()
+m.layout.set(Card)
 
 
 
 
+# Card Header ------------------------------------------------------------------------
 
+# Create the Card Header Background
 cardHeader = new Layer
+	name: 'Card Header'
 	superLayer: Card
 	backgroundColor: "transparent"
 
@@ -61,7 +71,10 @@ cardHeader.constraints =
 
 m.layout.set(cardHeader)
 
-# Card Image  -----------------------------------------------------------------------	
+# Card Image  -----------------------------------------------------------------------
+
+# Set the Card Image
+
 CardImage = new Layer
 	name: "Card Image"
 	superLayer: Card
@@ -109,7 +122,7 @@ cardTimestamp.constraints =
 	leading: 16
 	trailing: 16
 	
-m.layout.set()
+m.layout.set(cardTimestamp)
 	
 
 
@@ -126,7 +139,7 @@ avatar = new Layer
 avatar.constraints =
 	leading: 16
 	top: 14
-m.layout.set()
+m.layout.set(avatar)
 
 avatar.states.add
 	show: {opacity:1, rotationY: 0}
@@ -149,7 +162,7 @@ category = new m.Text
 category.constraints =
 	leading: [avatar,16]
 	top: 12
-m.layout.set()
+m.layout.set(category)
 
 # Source Text -----------------------------------------------------------------------
 
@@ -164,7 +177,7 @@ source = new m.Text
 source.constraints =
 	leading: [avatar,16]
 	top: [category,4]
-m.layout.set()
+m.layout.set(source)
 
 # Dot Icon  -----------------------------------------------------------------------
 Actions = new Layer
@@ -176,7 +189,7 @@ Actions = new Layer
 Actions.constraints =
 	trailing: 24
 	top:20
-m.layout.set()
+m.layout.set(Actions)
 
 # Article Text -----------------------------------------------------------------------
 
@@ -190,14 +203,10 @@ text1 = new Layer
 text1.constraints =
 	top: [cardTimestamp,16]
 
-m.layout.set()
+m.layout.set(text1)
 
 
 # Close Icon -----------------------------------------------------------------------
-
-
-
-
 
 Close = new Layer
 	name: "Close Icon"
@@ -209,7 +218,7 @@ Close = new Layer
 Close.constraints =
 	leading: 16
 	top: 14
-m.layout.set()
+m.layout.set(Close)
 
 Close.states.add
 	show: {opacity:1, rotationY: 0}
@@ -231,15 +240,12 @@ closeArea = new Layer
 	backgroundColor: "transparent"
 	y: 60
 
-
-
-
 # Book Mark Icon -----------------------------------------------------------------------
 
 
-
-
+# Default
 bookmark_default = new Layer
+	name: "Bookmark Default"
 	superLayer: cardHeader
 	width: 36
 	height: 48
@@ -248,13 +254,23 @@ bookmark_default = new Layer
 bookmark_default.constraints =
 	trailing: [Actions,24]
 	top: 16
-m.layout.set()
+m.layout.set(bookmark_default)
+
+
+bookmark_default.states.add
+	show: {opacity: 1}
+	hide: {opacity: 0, x: 700}
+	
+bookmark_default.states.switchInstant 'hide'
+bookmark_default.states.animationOptions =
+	curve: animateInCurve
+	time: animateTime
 
 
 
-
-
+# Active
 bookmark_active = new Layer
+	name: "Bookmark Active"
 	superLayer: cardHeader
 	width: 36
 	height: 48
@@ -263,7 +279,7 @@ bookmark_active = new Layer
 bookmark_active.constraints =
 	trailing: [Actions,24]
 	top: 16
-m.layout.set()
+m.layout.set(bookmark_active)
 
 
 
@@ -274,137 +290,50 @@ bookmark_active.states.add
 bookmark_active.states.switchInstant 'hide'
 
 
-bookmark_default.states.add
-	show: {opacity: 1}
-	hide: {opacity: 0, x: 700}
-	
-bookmark_default.states.switchInstant 'hide'
-
 bookmark_active.states.animationOptions =
-	curve: "spring-rk4(900,50,0)"
+	curve:animateInCurve
+	time: animateTime
 	
-bookmark_default.states.animationOptions =
-	curve: "spring-rk4(900,50,0)"
-audio = new Audio('images/Swipe_1.wav');
 
-layerA = new Layer
+
+# Pull To Close Setup
+
+
+pullToCloseBackground = new Layer
+	name: "Pull Background"
 	width: 750
-	backgroundColor: "rgba(8,1,3,0.74)"
+	backgroundColor: "#51497A"
 	superLayer: container
 
 
 
 releaseText = new m.Text	
+	name: "Pull To Close"
 	text: "Pull to close"
 	textAlign: 'center'
-	superLayer: layerA
+	superLayer: pullToCloseBackground
 	color: '#9585DD'
 	fontSize: '12px'
-	opacity: 0.4
 	fontWeight: 'bold'
+	
+	
 releaseText.constraints =
 	leading: 0
 	trailing: 0
 	top: 20
-m.layout.set()
+m.layout.set(releaseText)
 
-###
-
-# Card2 -----------------------------------------------------------------------
-Card2 = new Layer
-	name: "Card 2"
-	y: 432
-	backgroundColor: "rgba(255,255,255,1)"
-	shadowSpread: 0
-	shadowColor: "rgba(0,0,0,0.10)"
-	shadowY: -0.5
-	shadowBlur: 14
-	height: 598
-	borderRadius: 16
-	clip: true
-
-	
-Card2.constraints =
-		leading:0
-		trailing: 0
-		top: [Card, 16]
-		
-		
-m.layout.set()
-
-
-
-cardHeader2 = new Layer
-	superLayer: Card2
+# Constraint Layer for the Card Drag
+constraints = new Layer
+	name: "Card Drag Constraint"
+	width: 750
+	height: 1200
 	backgroundColor: "transparent"
-
-cardHeader2.constraints =
-	top: 0
-	leading: 0
-	trailing:0
-	height: 56
-
-m.layout.set(cardHeader2)
-
-# Card Image  -----------------------------------------------------------------------	
-CardImage2 = new Layer
-	name: "Card Image 2"
-	superLayer: Card2
-	image: "images/127129.jpg"
+	y: 60
 	
-CardImage2.constraints = 
-	top: [cardHeader2,0]
-	leading: 0
-	width: 125
-	height: 150
-
-m.layout.set(CardImage2)
-# Card Text -----------------------------------------------------------------------
+# Home Feed Scroll
 
 
-cardHeadline2 = new m.Text
-	name: "Headline"
-	superLayer: Card2
-	text: "Bone marrow braces caries chronic external otitis"
-	fontFamily: "SFUIDisplay-Light"
-	fontSize: "21"
-	color: "#5A6377"
-	
-	
-cardHeadline2.constraints =
-	top: [cardHeader2, 16]
-	leading: [CardImage2, 16]
-	trailing: 16
-	height: 40
-	
-m.layout.set(cardHeadline2)
-
-
-
-cardTimestamp2 = new m.Text
-	name: "Time Stamp"
-	superLayer: Card2
-	text: "5 min read"
-	fontFamily: "SFUIDisplay-Regular"
-	fontSize: "13"
-	
-	color: "#A6AEC0"
-cardTimestamp2.constraints =
-	top: [cardHeadline2, 32]
-	leading: [CardImage2, 16]
-	trailing: 16
-	
-m.layout.set(cardTimestamp2)
-	
-
-
-
-
-
-###
-
-
-# Scroll Container
 scroll = new ScrollComponent
 	width: Screen.width
 	height: Screen.height
@@ -427,134 +356,139 @@ scroll.on Events.Move, ->
     Navigation_Bar.y = y 
 
 
+# Expand Animation ------------------------------
 
-constraints = new Layer
-	width: 750
-	height: 1274
-	backgroundColor: "transparent"
-	y: 60
-# EXPAND CARD ANIMATIONS
+
+
+# Animate IN ----------------------------------------------------
 expandCard = ->
-	# Move Card out of Scroll container
-	layerA.animate
+	
+	
+	pullToCloseBackground.animate
 		properties: 
-			opacity: 1
+			opacity: 0.6
 		curve: "ease-in"
-		
-	Navigation_Bar.animate
-		properties: {blur: 6}
-
-		
+			
+	# Move the Card out of the Scroll container by changing it's superLayer
 	Card.superLayer = container
+	# Send Navbar into background
 	Navigation_Bar.sendToBack()
+	# Make the Card draggable
 	Card.draggable.enabled = true
 	Card.draggable.horizontal = false
 	Card.draggable.constraints = constraints.frame 
+	# bring the Close Trigger Area to the front
 	closeArea.bringToFront()
 	releaseText.opacity = 0
-		
 	
+	# Animate the Card position
 	Card.animate
 		properties:
 			y:40
-		curve: "spring-rk4(1500,120,2)"
-
-
+		curve: animateInCurve
+		time: 0.3	
+		
+	# Change the Image Height
 	CardImage.constraints.height = 400
+	# Animate the Card Background Height to take up the whole screen
 	Card.constraints.height = Screen.height
-		
+	# Animate all elements realative to the new Image and Card constraints
 	m.layout.animate
-		curve: "spring-rk4(3000,140,2)"
+		curve: animateInCurve
+		time: 0.3	
 		
+	# Hide the Avatar and show the Close Icon
 	avatar.states.switch 'hide'
 	Close.states.switch 'show'
+	# Show the Bookmark Icon
 	bookmark_default.states.switch 'show'
-
-
+	
+	
+	
+	
+	
+# Animate OUT ----------------------------------------------------
 
 goBack = ->
-	
-	layerA.animate
+
+	pullToCloseBackground.animate
 		properties: 
 			opacity: 0
-		curve: "ease-out"
-		time: 1
-	# Move Card back into Scroll container
+		curve: animateInCurve
+		time: 0.2
+		
+	# Remove the Drag Events on the Card
 	Card.draggable.enabled = false
+	
+	# Move Card back into Scroll container
 	Card.superLayer = scroll.content
 	closeArea.sendToBack()
-	
+
+	# Animate the Cards position back into the Scroll Container
 	Card.animate
-		properties: (y:260)
-		curve: "ease-in"
-		time:0.001
-
+		properties: (y:432)
+		curve: animateInCurve
+		time: 0.3	
 	
-	Utils.delay 0.006, ->
+	# Reset the Card Constraints and Image height
+	CardImage.constraints.height = 150
+	Card.constraints.height = 298
+
+	# Animate all constraints back to original values
+	m.layout.animate
+		curve: animateInCurve
+		time: 0.3	
 		
-		Card.animate
-			properties: (y:432)
-			curve: "ease-in"
-			time:0.00000000001
-				# Reset the Card Constraints
-		Card.constraints.height = 298
-		CardImage.constraints.height = 150
-		m.layout.animate
-			curve: "ease-in"
-			time: 0.3
-		bookmark_default.states.switch 'hide'
-		Navigation_Bar.bringToFront()
-		avatar.states.switch 'show'
-		Close.states.switch 'hide'
-		Card.animate	
-			properties: 
-				shadowSpread: 0
-				shadowColor: "rgba(0,0,0,0.10)"
-				shadowY: -0.5
-				shadowBlur: 14
-			curve: "ease-in"
-			time: 0.3
+	# Hide Bookmark adn Close Icon, Show Avatar
+	bookmark_default.states.switch 'hide'
+	Close.states.switch 'hide'
+	avatar.states.switch 'show'
 			
-
-
-Card.on Events.Drag, ->
-	scale = Utils.modulate(Card.y, [0,100], [0.9,1], true)
-	releaseText.scale = scale
-	
-	opacity = Utils.modulate(Card.y, [0,200], [0.6,1], true)
-	releaseText.opacity = opacity
-	
-	y = Utils.modulate(Card.y, [0,190], [-103,96], true)
-	releaseText.y = y
-	
-	height = Utils.modulate(Card.y, [0,200], [0,1400], true)
-	layerA.height = height
-	
-
+	# Show Navigation_Bar
+	Navigation_Bar.bringToFront()
 
 	
-Card.on Events.DragEnd, ->
-	if Card.y > 160
-		
-		goBack()
-		layerA.height = 0
-	
-		
 
 
 
+# EVENTS ----------------------------
 
-
-
-
-
+# When Clicking on the Card, Expand the Card
 Card.on Events.Click,->
 	expandCard()
 
 
+# When Clicking the Close Icon, Close the Card
 closeArea.on Events.Click, ->
 	goBack()
 
+
+# When Dragging the Card down, animate the "Pull to close" Text
+Card.on Events.Drag, ->
+
+	scale2 = Utils.modulate(Card.y, [0,400], [0.5,1.2], true)
+	releaseText.scale = scale2
+	
+	opacity = Utils.modulate(Card.y, [0,240], [0,1], true)
+	releaseText.opacity = opacity
+	
+	
+	y = Utils.modulate(Card.y, [0,190], [-103,96], true)
+	releaseText.y = y
+	
+	height = Utils.modulate(Card.y, [0,200], [0,1200], true)
+	pullToCloseBackground.height = height
+	
+
+
+# When Dragging the Card Down beyond threshold 'y' , close the Card
+Card.on Events.DragEnd, ->
+	pullToCloseBackground.height = 100
+	if Card.y > 160
+		goBack()
+		pullToCloseBackground.height = 0
+	
+		
 
 
 
