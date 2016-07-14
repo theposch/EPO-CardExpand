@@ -381,6 +381,7 @@ trigger.on Events.Click,->
 	darkBG.states.switch 'show'
 	Card.ignoreEvents = true
 	CardImage.ignoreEvents = true
+	cardHeader.ignoreEvents = true
 	scroll.scrollVertical = false
 actionSheet.on Events.Click,->
 	actionSheet.states.next('show','hide')
@@ -388,8 +389,15 @@ actionSheet.on Events.Click,->
 	Card.ignoreEvents = false
 	CardImage.ignoreEvents = false
 	scroll.scrollVertical = true
+	cardHeader.ignoreEvents = false
 
-	
+
+# SOUND
+#audio = new Audio('images/Swipe1.wav');
+#audio2 = new Audio('images/Swipe2.wav');
+
+
+
 # Home Feed Scroll
 
 
@@ -425,7 +433,7 @@ scroll.placeBehind(darkBG)
 
 # Animate IN ----------------------------------------------------
 expandCard = ->
-	
+	#audio.play()
 	darkBG.states.switch 'show'
 	# Move the Card out of the Scroll container by changing it's superLayer
 	Card.superLayer = container
@@ -447,9 +455,9 @@ expandCard = ->
 		time: 0.3	
 		
 	# Change the Image Height
-	CardImage.constraints.height = 400
+	CardImage.constraints.height = 250
 	# Animate the Card Background Height to take up the whole screen
-	Card.constraints.height = Screen.height
+	Card.height = Screen.height
 	# Animate all elements realative to the new Image and Card constraints
 	m.layout.animate
 		curve: animateInCurve
@@ -468,7 +476,7 @@ expandCard = ->
 # Animate OUT ----------------------------------------------------
 
 goBack = ->
-
+	#audio2.play()
 	darkBG.states.switch 'hide'
 
 	# Remove the Drag Events on the Card
@@ -509,7 +517,7 @@ goBack = ->
 
 
 # EVENTS ----------------------------
-
+CardImage.propagateEvents = false
 # When Clicking on the Card, Expand the Card
 CardImage.on Events.Click,->
 	expandCard()
@@ -539,16 +547,18 @@ Card.on Events.Drag, ->
 	scale3 = Utils.modulate(Card.y, [0,600], [1,0.9], true)
 	Card.scale = scale3
 
-
+CardImage.on Events.SwipeUp, ->
+	expandCard()
 
 # When Dragging the Card Down beyond threshold 'y' , close the Card
+
 Card.on Events.DragEnd, ->
 	if Card.y > 160
 		Card.animate
 			properties: 
 				scale:1
 		goBack()
-	
+		
 	
 		
 

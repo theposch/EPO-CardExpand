@@ -8,16 +8,16 @@
   "deviceType" : "apple-iphone-6s-gold",
   "selectedHand" : "",
   "updateDelay" : 0.3,
-  "deviceScale" : 0.5,
+  "deviceScale" : "fit",
   "foldedCodeRanges" : [
     "{0, 606}",
     "{608, 180}",
     "{789, 5175}",
     "{5965, 786}",
     "{6752, 891}",
-    "{7646, 470}",
-    "{8168, 2045}",
-    "{10214, 869}"
+    "{7739, 470}",
+    "{8261, 2061}",
+    "{10323, 870}"
   ],
   "orientation" : 0,
   "fullScreen" : false

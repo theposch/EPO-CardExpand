@@ -309,7 +309,7 @@ darkBG = new Layer
 	height: Screen.height
 	backgroundColor: "rgba(11,5,14,0.97)"
 	superLayer: container
-
+darkBG.placeBefore(Navigation_Bar)
 
 
 darkBG.states.add
@@ -319,9 +319,9 @@ darkBG.states.add
 darkBG.states.switchInstant 'hide'
 darkBG.states.animationOptions =
 	curve: animateInCurve
-	time: 0.5
+	time: 0.3
 
-
+###
 releaseText = new m.Text	
 	name: "Pull To Close"
 	text: "Pull to close"
@@ -337,7 +337,7 @@ releaseText.constraints =
 	trailing: 0
 	top: 20
 m.layout.set(releaseText)
-
+###
 # Constraint Layer for the Card Drag
 constraints = new Layer
 	name: "Card Drag Constraint"
@@ -359,12 +359,12 @@ actionSheet.centerX()
 
 actionSheet.states.add
 	show: {y: 732}
-	hide: {y: 1300}
+	hide: {y: 1500}
 actionSheet.states.switchInstant 'hide'
 
 actionSheet.states.animationOptions =
 	curve: animateInCurve
-	time: animateTime
+	time: 0.5
 
 trigger = new Layer
 	superLayer: Card
@@ -375,11 +375,21 @@ trigger = new Layer
 	
 
 trigger.on Events.Click,->
+	darkBG.bringToFront()
+	actionSheet.bringToFront()
 	actionSheet.states.next('show','hide')
 	darkBG.states.switch 'show'
+	Card.ignoreEvents = true
+	CardImage.ignoreEvents = true
+	cardHeader.ignoreEvents = true
+	scroll.scrollVertical = false
 actionSheet.on Events.Click,->
 	actionSheet.states.next('show','hide')
 	darkBG.states.switch 'hide'
+	Card.ignoreEvents = false
+	CardImage.ignoreEvents = false
+	scroll.scrollVertical = true
+	cardHeader.ignoreEvents = false
 
 	
 # Home Feed Scroll
@@ -397,7 +407,6 @@ Card3.superLayer = scroll.content
 
 
 Navigation_Bar.superLayer = container
-Navigation_Bar.bringToFront()
 Statusbar.superLayer = container
 
 # when scrolling, move navbar 
@@ -408,8 +417,10 @@ scroll.on Events.Move, ->
 	
 
 
-darkBG.placeBefore(scroll)
+darkBG.bringToFront()
 scroll.placeBehind(darkBG)
+
+
 # Expand Animation ------------------------------
 
 
@@ -428,7 +439,7 @@ expandCard = ->
 	Card.draggable.constraints = constraints.frame 
 	# bring the Close Trigger Area to the front
 	closeArea.bringToFront()
-	releaseText.opacity = 0
+	#releaseText.opacity = 0
 	
 	# Animate the Card position
 	Card.animate
@@ -438,9 +449,9 @@ expandCard = ->
 		time: 0.3	
 		
 	# Change the Image Height
-	CardImage.constraints.height = 400
+	CardImage.constraints.height = 250
 	# Animate the Card Background Height to take up the whole screen
-	Card.constraints.height = Screen.height
+	Card.height = Screen.height
 	# Animate all elements realative to the new Image and Card constraints
 	m.layout.animate
 		curve: animateInCurve
@@ -460,7 +471,7 @@ expandCard = ->
 
 goBack = ->
 
-	pullToCloseBackground.states.switch 'hide'
+	darkBG.states.switch 'hide'
 
 	# Remove the Drag Events on the Card
 	Card.draggable.enabled = false
@@ -492,6 +503,7 @@ goBack = ->
 	# Show Navigation_Bar
 	Navigation_Bar.bringToFront()
 	Statusbar.bringToFront()
+	darkBG.bringToFront()
 
 
 	
@@ -512,27 +524,30 @@ closeArea.on Events.Click, ->
 
 
 # When Dragging the Card down, animate the "Pull to close" Text
-Card.on Events.Drag, ->
 
-	scale2 = Utils.modulate(Card.y, [0,400], [0.5,1.2], true)
-	releaseText.scale = scale2
+Card.on Events.Drag, ->
 	
-	opacity = Utils.modulate(Card.y, [0,240], [0,1], true)
-	releaseText.opacity = opacity
+	#scale2 = Utils.modulate(Card.y, [0,400], [0.5,1.2], true)
+	#releaseText.scale = scale2
+	
+	#opacity = Utils.modulate(Card.y, [0,240], [0,1], true)
+	#releaseText.opacity = opacity
 	
 	
-	y = Utils.modulate(Card.y, [0,190], [-103,96], true)
-	releaseText.y = y
-	
+	#y = Utils.modulate(Card.y, [0,190], [-103,96], true)
+	#releaseText.y = y
+
 	
 	scale3 = Utils.modulate(Card.y, [0,600], [1,0.9], true)
 	Card.scale = scale3
+	
+	
+
 
 
 
 # When Dragging the Card Down beyond threshold 'y' , close the Card
 Card.on Events.DragEnd, ->
-	pullToCloseBackground.height = 100
 	if Card.y > 160
 		Card.animate
 			properties: 

@@ -391,7 +391,13 @@ actionSheet.on Events.Click,->
 	scroll.scrollVertical = true
 	cardHeader.ignoreEvents = false
 
-	
+
+# SOUND
+#audio = new Audio('images/Swipe1.wav');
+#audio2 = new Audio('images/Swipe2.wav');
+
+
+
 # Home Feed Scroll
 
 
@@ -427,7 +433,7 @@ scroll.placeBehind(darkBG)
 
 # Animate IN ----------------------------------------------------
 expandCard = ->
-	
+	#audio.play()
 	darkBG.states.switch 'show'
 	# Move the Card out of the Scroll container by changing it's superLayer
 	Card.superLayer = container
@@ -451,7 +457,7 @@ expandCard = ->
 	# Change the Image Height
 	CardImage.constraints.height = 250
 	# Animate the Card Background Height to take up the whole screen
-	Card.constraints.height = Screen.height
+	Card.height = Screen.height
 	# Animate all elements realative to the new Image and Card constraints
 	m.layout.animate
 		curve: animateInCurve
@@ -470,7 +476,7 @@ expandCard = ->
 # Animate OUT ----------------------------------------------------
 
 goBack = ->
-
+	#audio2.play()
 	darkBG.states.switch 'hide'
 
 	# Remove the Drag Events on the Card
@@ -542,17 +548,17 @@ Card.on Events.Drag, ->
 	Card.scale = scale3
 
 
-
 # When Dragging the Card Down beyond threshold 'y' , close the Card
+
 Card.on Events.DragEnd, ->
 	if Card.y > 160
 		Card.animate
 			properties: 
 				scale:1
 		goBack()
-	
+		
 	
 		
 
-
+Navigation_Bar.bringToFront()
 

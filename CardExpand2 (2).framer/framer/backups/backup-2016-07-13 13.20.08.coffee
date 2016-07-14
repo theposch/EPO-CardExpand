@@ -379,11 +379,25 @@ trigger.on Events.Click,->
 	actionSheet.bringToFront()
 	actionSheet.states.next('show','hide')
 	darkBG.states.switch 'show'
+	Card.ignoreEvents = true
+	CardImage.ignoreEvents = true
+	cardHeader.ignoreEvents = true
+	scroll.scrollVertical = false
 actionSheet.on Events.Click,->
 	actionSheet.states.next('show','hide')
 	darkBG.states.switch 'hide'
+	Card.ignoreEvents = false
+	CardImage.ignoreEvents = false
+	scroll.scrollVertical = true
+	cardHeader.ignoreEvents = false
 
-	
+
+# SOUND
+audio = new Audio('images/Swipe1.wav');
+audio2 = new Audio('images/Swipe2.wav');
+
+
+
 # Home Feed Scroll
 
 
@@ -411,13 +425,15 @@ scroll.on Events.Move, ->
 
 darkBG.bringToFront()
 scroll.placeBehind(darkBG)
+
+
 # Expand Animation ------------------------------
 
 
 
 # Animate IN ----------------------------------------------------
 expandCard = ->
-	
+	audio.play()
 	darkBG.states.switch 'show'
 	# Move the Card out of the Scroll container by changing it's superLayer
 	Card.superLayer = container
@@ -439,9 +455,9 @@ expandCard = ->
 		time: 0.3	
 		
 	# Change the Image Height
-	CardImage.constraints.height = 400
+	CardImage.constraints.height = 250
 	# Animate the Card Background Height to take up the whole screen
-	Card.constraints.height = Screen.height
+	Card.height = Screen.height
 	# Animate all elements realative to the new Image and Card constraints
 	m.layout.animate
 		curve: animateInCurve
@@ -460,7 +476,7 @@ expandCard = ->
 # Animate OUT ----------------------------------------------------
 
 goBack = ->
-
+	audio2.play()
 	darkBG.states.switch 'hide'
 
 	# Remove the Drag Events on the Card
@@ -516,20 +532,23 @@ closeArea.on Events.Click, ->
 # When Dragging the Card down, animate the "Pull to close" Text
 
 Card.on Events.Drag, ->
-###
-	scale2 = Utils.modulate(Card.y, [0,400], [0.5,1.2], true)
-	releaseText.scale = scale2
 	
-	opacity = Utils.modulate(Card.y, [0,240], [0,1], true)
-	releaseText.opacity = opacity
+	#scale2 = Utils.modulate(Card.y, [0,400], [0.5,1.2], true)
+	#releaseText.scale = scale2
+	
+	#opacity = Utils.modulate(Card.y, [0,240], [0,1], true)
+	#releaseText.opacity = opacity
 	
 	
-	y = Utils.modulate(Card.y, [0,190], [-103,96], true)
-	releaseText.y = y
+	#y = Utils.modulate(Card.y, [0,190], [-103,96], true)
+	#releaseText.y = y
 
 	
 	scale3 = Utils.modulate(Card.y, [0,600], [1,0.9], true)
 	Card.scale = scale3
+	
+	
+
 
 
 

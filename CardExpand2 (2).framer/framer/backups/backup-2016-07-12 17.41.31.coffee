@@ -379,9 +379,17 @@ trigger.on Events.Click,->
 	actionSheet.bringToFront()
 	actionSheet.states.next('show','hide')
 	darkBG.states.switch 'show'
+	Card.ignoreEvents = true
+	CardImage.ignoreEvents = true
+	cardHeader.ignoreEvents = true
+	scroll.scrollVertical = false
 actionSheet.on Events.Click,->
 	actionSheet.states.next('show','hide')
 	darkBG.states.switch 'hide'
+	Card.ignoreEvents = false
+	CardImage.ignoreEvents = false
+	scroll.scrollVertical = true
+	cardHeader.ignoreEvents = false
 
 	
 # Home Feed Scroll
@@ -411,6 +419,8 @@ scroll.on Events.Move, ->
 
 darkBG.bringToFront()
 scroll.placeBehind(darkBG)
+
+
 # Expand Animation ------------------------------
 
 
@@ -439,9 +449,9 @@ expandCard = ->
 		time: 0.3	
 		
 	# Change the Image Height
-	CardImage.constraints.height = 400
+	CardImage.constraints.height = 250
 	# Animate the Card Background Height to take up the whole screen
-	Card.constraints.height = Screen.height
+	Card.constraints.height = 900
 	# Animate all elements realative to the new Image and Card constraints
 	m.layout.animate
 		curve: animateInCurve
@@ -530,6 +540,9 @@ Card.on Events.Drag, ->
 	
 	scale3 = Utils.modulate(Card.y, [0,600], [1,0.9], true)
 	Card.scale = scale3
+	
+	
+
 
 
 
